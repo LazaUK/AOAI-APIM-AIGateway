@@ -18,14 +18,14 @@ XXXXXXXXXXXXXX
 4. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token consumption policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-token-limit-policy):
 ![APIM - Detailing TPM policy](/images/apim_tpm_policy.png)
 5. If you want to test your TPM limit, ensure that you set the following 4 environment variables prior to running the notebook:
-
+![APIM - Setting environment variables](/images/apim_env_var.png)
 | Environment Variable | Description |
 | --- | --- |
 | _APIM_TPM_URL_ | URL of the provisioned API-M's endpoint. |
 | _APIM_TPM_SUB_KEY_ | Subscription key, with its scope covering target APIs. |
 | _APIM_TPM_API_VERSION_ | API version of AOAI endpoint. |
 | _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment. |
-![APIM - Setting environment variables](/images/apim_env_var.png)
+
 
 ## Scenario 2: Usage analysis by specific customer
 1. Repeat Steps # 1 and 2 from Scenario 1 above.
