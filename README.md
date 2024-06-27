@@ -102,19 +102,30 @@ def get_sdk_completion(system_prompt, prompt):
 ```
 10. When using SDK interface, instead of getting 429 errors you may notice throttling being enforced by API-M, because of our TPM limit policy.
 ``` JSON
-# Helper function for SDK call
-def get_sdk_completion(system_prompt, prompt):
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt}
-    ]
-
-    response = client.chat.completions.create(
-        model = AOAI_DEPLOYMENT,
-        messages = messages,
-        temperature = TEMPERATURE
-    )
-    return response
+Run # 0 completed in 14.09 seconds
+Tokens consumed: 51
+First few words of completion: Sure, here...
+Pausing for 15 seconds...
+-----------------------------
+Run # 1 completed in 31.48 seconds
+Tokens consumed: 55
+First few words of completion: Sure, here...
+Pausing for 15 seconds...
+-----------------------------
+Run # 2 completed in 0.90 seconds
+Tokens consumed: 58
+First few words of completion: Sure, here...
+Pausing for 15 seconds...
+-----------------------------
+Run # 3 completed in 30.22 seconds
+Tokens consumed: 55
+First few words of completion: Sure! Here...
+Pausing for 15 seconds...
+-----------------------------
+Run # 4 completed in 1.25 seconds
+Tokens consumed: 55
+First few words of completion: Sure, here...
+-----------------------------
 ```
 
 ## Scenario 2: Usage analysis by specific customer
