@@ -80,11 +80,13 @@ Remaining tokens: 0
 -----------------------------
 ```
 8. If you enabled SDK compatibility in Step 2 above, then you can use OpenAI Python SDK to instantiate _AzureOpenAI_ class with API-M URL and credentials:
+``` Python
 client = AzureOpenAI(
     azure_endpoint = APIM_TPM_URL,
     api_key = APIM_TPM_SUB_KEY,
     api_version = AOAI_API_VERSION
 )
+```
 9. This would allow then OpenAI-compatible interfacing, with example Helper function shown below.
 ``` Python
 def get_sdk_completion(system_prompt, prompt):
@@ -95,8 +97,7 @@ def get_sdk_completion(system_prompt, prompt):
 
     response = client.chat.completions.create(
         model = AOAI_DEPLOYMENT,
-        messages = messages,
-        temperature = TEMPERATURE
+        messages = messages
     )
     return response
 ```
