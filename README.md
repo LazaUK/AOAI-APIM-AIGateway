@@ -1,2 +1,14 @@
-# AOAI-APIM-AIGateway
-Practical use of Azure API Management's AI Gateway to manage Azure OpenAI operations.
+# Azure API Management's AI Gateway for AOAI use-case scenarios
+
+XXXXXXXXXXXXXX
+
+## Table of contents:
+- [Scenario 1: Usage analysis by specific customer]()
+- [Scenario 2: Enforcing custom token limit]()
+- [Scenario 3: Load-balancing between several AOAI endpoints]()
+
+## Scenario 1: Usage analysis by specific customer
+
+## Scenario 2: Enforcing custom token limit
+
+## Scenario 3: Load-balancing between several AOAI endpoints
