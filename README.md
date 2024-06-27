@@ -53,7 +53,7 @@ def get_rest_completion(system_prompt, user_prompt):
     return response
 ```
 7. If you set your TPM value to 100 and the average consumption of tokens in your request is about 50, then after few API calls you will should reach the token limit, with API-M enforcing new policy as shown in the testing results below. 
-``` Text
+``` JSON
 Run # 0 completed in 1.93 seconds
 Consumed tokens: 59
 Remaining tokens: 41
@@ -79,7 +79,43 @@ Consumed tokens: 55
 Remaining tokens: 0
 -----------------------------
 ```
+8. If you enabled SDK compatibility in Step 2 above, then you can use OpenAI Python SDK to instantiate _AzureOpenAI_ class with API-M URL and credentials:
+client = AzureOpenAI(
+    azure_endpoint = APIM_TPM_URL,
+    api_key = APIM_TPM_SUB_KEY,
+    api_version = AOAI_API_VERSION
+)
+9. This would allow then OpenAI-compatible interfacing, with example Helper function shown below.
+``` Python
+def get_sdk_completion(system_prompt, prompt):
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt}
+    ]
 
+    response = client.chat.completions.create(
+        model = AOAI_DEPLOYMENT,
+        messages = messages,
+        temperature = TEMPERATURE
+    )
+    return response
+```
+10. When using SDK interface, instead of getting 429 errors you may notice throttling being enforced by API-M, because of our TPM limit policy.
+``` JSON
+# Helper function for SDK call
+def get_sdk_completion(system_prompt, prompt):
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt}
+    ]
+
+    response = client.chat.completions.create(
+        model = AOAI_DEPLOYMENT,
+        messages = messages,
+        temperature = TEMPERATURE
+    )
+    return response
+```
 
 ## Scenario 2: Usage analysis by specific customer
 1. Repeat Steps # 1 and 2 from Scenario 1 above.
