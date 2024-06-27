@@ -22,10 +22,13 @@ XXXXXXXXXXXXXX
 
 | Environment Variable | Description |
 | --- | --- |
-| _APIM_TPM_URL_ | URL of the provisioned API-M's endpoint. |
-| _APIM_TPM_SUB_KEY_ | Subscription key, with its scope covering target APIs. |
-| _APIM_TPM_API_VERSION_ | API version of AOAI endpoint. |
-| _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment. |
+| _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_TPM_API_VERSION_ | API version of AOAI endpoint |
+| _APIM_TPM_SUB_KEY_ | Subscription key, with its scope covering target APIs |
+| _APIM_TPM_URL_ | URL of the provisioned API-M's endpoint |
+
+6. 
+
 
 
 ## Scenario 2: Usage analysis by specific customer
