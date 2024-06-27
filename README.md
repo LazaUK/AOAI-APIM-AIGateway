@@ -19,6 +19,7 @@ XXXXXXXXXXXXXX
 ![APIM - Detailing TPM policy](/images/apim_tpm_policy.png)
 5. If you want to test your TPM limit, ensure that you set the following 4 environment variables prior to running the notebook:
 ![APIM - Setting environment variables](/images/apim_env_var.png)
+
 | Environment Variable | Description |
 | --- | --- |
 | _APIM_TPM_URL_ | URL of the provisioned API-M's endpoint. |
