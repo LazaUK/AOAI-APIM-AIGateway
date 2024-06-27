@@ -3,12 +3,14 @@
 XXXXXXXXXXXXXX
 
 ## Table of contents:
-- [Scenario 1: Usage analysis by specific customer]()
-- [Scenario 2: Enforcing custom token limit]()
+- [Scenario 1: Enforcing custom token limit]()
+- [Scenario 2: Usage analysis by specific customer]()
 - [Scenario 3: Load-balancing between several AOAI endpoints]()
 
-## Scenario 1: Usage analysis by specific customer
+## Scenario 1: Enforcing custom token limit
 
-## Scenario 2: Enforcing custom token limit
+
+## Scenario 2: Usage analysis by specific customer
+
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
