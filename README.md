@@ -131,5 +131,6 @@ First few words of completion: Sure, here...
 
 ## Scenario 2: Usage analysis by specific customer
 1. Repeat Steps # 1 and 2 from Scenario 1 above.
+![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
