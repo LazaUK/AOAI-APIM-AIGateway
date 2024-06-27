@@ -24,11 +24,61 @@ XXXXXXXXXXXXXX
 | --- | --- |
 | _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment |
 | _APIM_TPM_API_VERSION_ | API version of AOAI endpoint |
-| _APIM_TPM_SUB_KEY_ | Subscription key, with its scope covering target APIs |
-| _APIM_TPM_URL_ | URL of the provisioned API-M's endpoint |
+| _APIM_TPM_SUB_KEY_ | Subscription key, with the scope covering target API-M APIs |
+| _APIM_TPM_URL_ | URL of provisioned API-M's endpoint for AOAI endpoint |
 
-6. 
-
+6. We can use now a Helper function to interact with AOAI backend through API-M endpoint:
+``` Python
+def get_rest_completion(system_prompt, user_prompt):
+    response = requests.post(
+        url = f"{APIM_TPM_URL}openai/deployments/{AOAI_DEPLOYMENT}/chat/completions",
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": APIM_TPM_SUB_KEY
+        },
+        params={'api-version': AOAI_API_VERSION},
+        json = {
+            "messages": [
+                {
+                   "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ]
+        }
+    )
+    return response
+```
+7. If you set your TPM value to 100 and the average consumption of tokens in your request is about 50, then after few API calls you will should reach the token limit, with API-M enforcing new policy as shown in the testing results below. 
+``` Text
+Run # 0 completed in 1.93 seconds
+Consumed tokens: 59
+Remaining tokens: 41
+Pausing for 15 seconds...
+-----------------------------
+Run # 1 completed in 0.78 seconds
+Consumed tokens: 55
+Remaining tokens: 0
+Pausing for 15 seconds...
+-----------------------------
+Run # 2 completed in 0.40 seconds
+Response code: 429
+Response message: Token limit is exceeded. Try again in 29 seconds.
+Pausing for 15 seconds...
+-----------------------------
+Run # 3 completed in 0.35 seconds
+Response code: 429
+Response message: Token limit is exceeded. Try again in 14 seconds.
+Pausing for 15 seconds...
+-----------------------------
+Run # 4 completed in 0.91 seconds
+Consumed tokens: 55
+Remaining tokens: 0
+-----------------------------
+```
 
 
 ## Scenario 2: Usage analysis by specific customer
