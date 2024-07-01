@@ -16,7 +16,25 @@ XXXXXXXXXXXXXX
 ![APIM - Enabling TPM policy](/images/apim_tpm_config.png)
 > _Note_: provided [Jupyter notebook](AOAI_APIM_TPM_Limit.ipynb) assumes that you have both headers enabled and was tested against API-M endpoint with **100** TPM limit.
 4. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token consumption policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-token-limit-policy):
-![APIM - Detailing TPM policy](/images/apim_tpm_policy.png)
+``` XML
+<policies>
+    <inbound>
+        <set-backend-service id="apim-generated-policy" backend-id="aoai-tpm-limit-openai-endpoint" />
+        <azure-openai-token-limit tokens-per-minute="100" counter-key="@(context.Subscription.Id)" estimate-prompt-tokens="false" tokens-consumed-header-name="consumed-tokens" remaining-tokens-header-name="remaining-tokens" />
+        <authentication-managed-identity resource="https://cognitiveservices.azure.com/" />
+        <base />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
+```
 5. If you want to test your TPM limit, ensure that you set the following 4 environment variables prior to running the notebook:
 ![APIM - Setting environment variables](/images/apim_env_var.png)
 
