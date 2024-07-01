@@ -121,29 +121,29 @@ def get_sdk_completion(system_prompt, prompt):
 ```
 10. When using SDK interface, instead of getting 429 errors you may notice throttling being enforced by API-M, because of our TPM limit policy.
 ``` JSON
-Run # 0 completed in 14.09 seconds
-Tokens consumed: 51
-First few words of completion: Sure, here...
+Run # 0 completed in 45.82 seconds
+Consumed tokens: 55
+Remaining tokens: 0
 Pausing for 15 seconds...
 -----------------------------
-Run # 1 completed in 31.48 seconds
-Tokens consumed: 55
-First few words of completion: Sure, here...
+Run # 1 completed in 0.65 seconds
+Consumed tokens: 55
+Remaining tokens: 0
 Pausing for 15 seconds...
 -----------------------------
-Run # 2 completed in 0.90 seconds
-Tokens consumed: 58
-First few words of completion: Sure, here...
+Run # 2 completed in 30.87 seconds
+Consumed tokens: 55
+Remaining tokens: 0
 Pausing for 15 seconds...
 -----------------------------
-Run # 3 completed in 30.22 seconds
-Tokens consumed: 55
-First few words of completion: Sure! Here...
+Run # 3 completed in 1.20 seconds
+Consumed tokens: 63
+Remaining tokens: 0
 Pausing for 15 seconds...
 -----------------------------
-Run # 4 completed in 1.25 seconds
-Tokens consumed: 55
-First few words of completion: Sure, here...
+Run # 4 completed in 29.88 seconds
+Consumed tokens: 56
+Remaining tokens: 0
 -----------------------------
 ```
 
