@@ -70,7 +70,7 @@ def get_rest_completion(system_prompt, user_prompt):
     )
     return response
 ```
-7. If you set your TPM value to 100 and the average consumption of tokens in your request is about 50, then after few API calls you will should reach the token limit, with API-M enforcing new policy as shown in the testing results below. 
+7. If you set your TPM value to 100 and the average consumption of tokens in your request is about 50, then after few API calls you will should reach the token limit, with API-M enforcing new policy as shown in the testing results below:
 ``` JSON
 Run # 0 completed in 1.93 seconds
 Consumed tokens: 59
@@ -105,7 +105,7 @@ client = AzureOpenAI(
     api_version = AOAI_API_VERSION
 )
 ```
-9. This would allow then OpenAI-compatible interfacing, with example Helper function shown below.
+9. This would allow then OpenAI-compatible interfacing, with example Helper function shown below:
 ``` Python
 def get_sdk_completion(system_prompt, prompt):
     messages = [
@@ -119,7 +119,7 @@ def get_sdk_completion(system_prompt, prompt):
     )
     return response
 ```
-10. When using SDK interface, instead of getting 429 errors you may notice throttling being enforced by API-M, because of our TPM limit policy.
+10. When using SDK interface, instead of getting 429 errors you may notice throttling being enforced by API-M, because of our TPM limit policy:
 ``` JSON
 Run # 0 completed in 45.82 seconds
 Consumed tokens: 55
@@ -148,7 +148,10 @@ Remaining tokens: 0
 ```
 
 ## Scenario 2: Usage analysis by specific customer
-1. Repeat Steps # 1 and 2 from Scenario 1 above.
+1. Repeat Steps # 1 and 2 from Scenario 1 above:
 ![APIM - Visualising usage stats](/images/apim_usage_chart.png)
+2. After clicking **Next**, enable "_Track token usage_" API-M policy, select existing Application Insights instance to log token metrics into and add dimensions that you want metrics to be grouped by, e.g. Subscription ID as shown below:
+![APIM - Enabling Usage policy](/images/apim_usage_config.png)
+3. 
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
