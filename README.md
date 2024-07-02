@@ -1,6 +1,13 @@
 # Azure API Management's AI Gateway for AOAI use-case scenarios
 
-XXXXXXXXXXXXXX
+Azure API Management (API-M) is a Microsoft's cloud service that helps you publish and securily manage your Application Programming Interfaces (APIs). API-M acts as a gateway between front-end applications and backend APIs, offering features like rate limiting, security and usage analytics.
+
+Azure OpenAI (AOAI) service lets you deploy and use OpenAI's powerful language models (like GPT-4o or DALL-E) within the Microsoft Azure platform. You can leverage capabilities of AOAI to build Generative AI (GenAI) applications for processing and generating multimodal content, such as text, images and audio, and easily integrate them with other Azure services or exteranl solutions of your choice.
+
+In this repo, I'll demonstrate how you can combine unique functionalities of API-M and AOAI in the following use-case scenarios:
+- Enforcing custom token limit to the calling applications, so that they can co-share the same AOAI backends without causing "noise neighbour" situations;
+- Get detailed token usage breakdown per apps, to analyse usage pattern and accurately re-charge cost to the relevant customers or business functions;
+- Enable load-balancing between target AOAI deployments to meet data residency requirements, and imporove performance and reliability of your GenAI solutions.
 
 ## Table of contents:
 - [Scenario 1: Enforcing custom token limit](https://github.com/LazaUK/AOAI-APIM-AIGateway?tab=readme-ov-file#scenario-1-enforcing-custom-token-limit)
