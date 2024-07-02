@@ -15,6 +15,7 @@ In this repo, I'll demonstrate how to combine functionalities of API-M and AOAI 
 - [Scenario 3: Load-balancing between several AOAI endpoints](https://github.com/LazaUK/AOAI-APIM-AIGateway?tab=readme-ov-file#scenario-3-load-balancing-between-several-aoai-endpoints)
 
 ## Scenario 1: Enforcing custom token limit
+This section describes setup of API-M and then end-to-end testing of tokens limit's enforcement scenario.
 1. In API-M's Azure portal settings choose _APIs -> Add API_ and then click "**Azure OpenAI Service**" tile under "**Create from Azure resource**" category.
 ![APIM - Adding APIs for AOAI](/images/apim_api_add.png)
 2. Select your existing AOAI resource, and enter values for **Display Name** and **Name** fields. Optionally, you can tick _SDK Compatibility_ field, to enable OpenAI-compatible consumption of exposed APIs from popular Generative AI frameworks and libraries:
@@ -22,7 +23,7 @@ In this repo, I'll demonstrate how to combine functionalities of API-M and AOAI 
 3. After clicking **Next**, enable "_Manage token consumption_" API-M policy and set desired Tokens-per-Minute (TPM) limit. Optionaly you can add "consumed tokens" and "remaining tokens" headers to API-M endpoint's responses.
 ![APIM - Enabling TPM policy](/images/apim_tpm_config.png)
 > _Note_: provided [Jupyter notebook](AOAI_APIM_TPM_Limit.ipynb) assumes that you have both headers enabled and was tested against API-M endpoint with **100** TPM limit.
-4. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token consumption policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-token-limit-policy):
+4. Once you click the **Create** button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add tokens limit policy to all new API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-token-limit-policy):
 ``` XML
 <policies>
     <inbound>
@@ -155,11 +156,12 @@ Remaining tokens: 0
 ```
 
 ## Scenario 2: Usage analysis by specific customer
+This section describes setup of API-M and then end-to-end testing of tokens usage's collection and visualisation scenario.
 1. Repeat Steps # 1 and 2 from Scenario 1 above.
 2. After clicking **Next**, enable "_Track token usage_" API-M policy, select existing Application Insights instance to log token metrics into and add dimensions that you want metrics to be grouped by:
 ![APIM - Enabling Usage policy](/images/apim_usage_config.png)
 > _Note_: provided [Jupyter notebook](AOAI_APIM_Usage_Analysis.ipynb) assumes that you have added **Subscription ID** as one of the logging dimensions.
-3. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token usage's tracking policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-emit-token-metric-policy):
+3. Once you click the **Create** button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token usage's metrics policy to all new API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-emit-token-metric-policy):
 ``` XML
 <policies>
     <inbound>
@@ -211,3 +213,41 @@ for key in SUBSCRIPTION_KEYS:
 ![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
+This section describes setup of API-M and then end-to-end testing of AOAI load-balancing scenario.
+1. For each backend, you can configure circuit-breaker logic, so that it trips when AOAI deployment returns too many errors. Provided ```LoadBalancer_CircuitBreaker.json``` can be used as a template to configure circuit breaker through API-M's REST API. It will trip for **30 seconds**, if if AOAO endpoint will return _429_ (Too Many Requests) or _5xx_ server errors in any **2 seconds** intervals.
+``` JSON
+{
+    "properties": {
+        "description": "<DESCRIPTION>",
+        "title": "<TITLE>",
+        "type": "Single",
+        "protocol": "http",
+        "url": "<URL>",
+        "circuitBreaker": {
+            "rules": [
+                {
+                    "failureCondition": {
+                        "count": 1,
+                        "interval": "PT2S",
+                        "statusCodeRanges": [
+                            {
+                                "min": 429,
+                                "max": 429
+                            },
+                            {
+                                "min": 500,
+                                "max": 599
+                            }
+                        ]
+                    },
+                    "name": "<NAME>",
+                    "tripDuration": "PT30S",
+                    "acceptRetryAfter": true
+                }
+            ]
+        }
+    }
+}
+```
+> Note: At the time of writing, API-M didn't support configuring circuit-breaker in API-M's UI of Azure portal.
+2. 
