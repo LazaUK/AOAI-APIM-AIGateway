@@ -1,0 +1,19 @@
+{
+    "properties": {
+        "description": "<DESCRIPTION>",
+        "title": "<TITLE>",
+        "type": "Pool",
+        "pool": {
+            "services": [
+                {
+                    "id": "<BACKEND_1>",
+                    "priority": 1
+                },
+                {
+                    "id": "<BACKEND_2>",
+                    "priority": 2
+                }
+            ]
+        }
+    }
+}
