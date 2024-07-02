@@ -250,4 +250,6 @@ This section describes setup of API-M and then end-to-end testing of AOAI load-b
 }
 ```
 > Note: At the time of writing, API-M didn't support configuring circuit-breaker in API-M's UI of Azure portal.
-2. 
+2. You can combine then your backends into load-balancing pool, using **round-robin**, **weight-** or **priority-based** logic. Provided ```LoadBalancer_Pool.json``` can be used as a template to configure such pool through API-M's REST API.
+> Note: At the time of writing, API-M didn't support configuring load-balancing pool in API-M's UI of Azure portal.
+3. 
