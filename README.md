@@ -159,7 +159,7 @@ Remaining tokens: 0
 2. After clicking **Next**, enable "_Track token usage_" API-M policy, select existing Application Insights instance to log token metrics into and add dimensions that you want metrics to be grouped by:
 ![APIM - Enabling Usage policy](/images/apim_usage_config.png)
 > _Note_: provided [Jupyter notebook](AOAI_APIM_Usage_Analysis.ipynb) assumes that you have added **Subscription ID** as one of the logging dimensions.
-4. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token usage's tracking policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-emit-token-metric-policy):
+3. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token usage's tracking policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-emit-token-metric-policy):
 ``` XML
 <policies>
     <inbound>
@@ -182,6 +182,7 @@ Remaining tokens: 0
 </policies>
 ```
 4. If you want to log and visualise tokens usage, ensure that you set the following 5 environment variables prior to running the notebook:
+
 ![APIM - Setting Usage environment variables](/images/apim_usage_ env_var.png)
 
 | Environment Variable | Description |
