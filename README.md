@@ -36,7 +36,7 @@ XXXXXXXXXXXXXX
 </policies>
 ```
 5. If you want to test your TPM limit, ensure that you set the following 4 environment variables prior to running the notebook:
-![APIM - Setting environment variables](/images/apim_env_var.png)
+![APIM - Setting TPM environment variables](/images/apim_env_var.png)
 
 | Environment Variable | Description |
 | --- | --- |
@@ -148,10 +148,42 @@ Remaining tokens: 0
 ```
 
 ## Scenario 2: Usage analysis by specific customer
-1. Repeat Steps # 1 and 2 from Scenario 1 above:
-![APIM - Visualising usage stats](/images/apim_usage_chart.png)
+1. Repeat Steps # 1 and 2 from Scenario 1 above.
 2. After clicking **Next**, enable "_Track token usage_" API-M policy, select existing Application Insights instance to log token metrics into and add dimensions that you want metrics to be grouped by, e.g. Subscription ID as shown below:
 ![APIM - Enabling Usage policy](/images/apim_usage_config.png)
-3. 
+3. Once you click the Create button, a new set of APIs will be provisioned to support interactions with various AOAI models. API-M will also add token usage's tracking policy to all newly provisioned API operations. Technical aspects of this policy can be found in [this reference document](https://learn.microsoft.com/en-gb/azure/api-management/azure-openai-emit-token-metric-policy):
+``` XML
+<policies>
+    <inbound>
+        <set-backend-service id="apim-generated-policy" backend-id="aoai-usage-by-cx-openai-endpoint" />
+        <azure-openai-emit-token-metric namespace="AzureOpenAI">
+            <dimension name="Subscription ID" value="@(context.Subscription.Id)" />
+        </azure-openai-emit-token-metric>
+        <authentication-managed-identity resource="https://cognitiveservices.azure.com/" />
+        <base />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
+```
+4. If you want to log and visualise tokens usage, ensure that you set the following 5 environment variables prior to running the notebook:
+![APIM - Setting Usage environment variables](/images/apim_usage_ env_var.png)
+
+| Environment Variable | Description |
+| --- | --- |
+| _APIM_USAGE_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_USAGE_API_VERSION_ | API version of AOAI endpoint |
+| _APIM_USAGE_KEY_CONTOSO_ | Subscription key, created for Contoso client |
+| _APIM_USAGE_KEY_NORTHWIND_ | Subscription key, created for Northwind client |
+| _APIM_USAGE_URL_ | URL of provisioned API-M's endpoint for AOAI endpoint |
+
+![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
