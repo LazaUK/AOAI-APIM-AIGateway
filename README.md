@@ -44,14 +44,14 @@ This section describes setup of API-M and then end-to-end testing of tokens limi
 </policies>
 ```
 5. If you want to test your TPM limit, ensure that you set the following 4 environment variables prior to running the notebook:
-![APIM - Setting TPM environment variables](/images/apim_env_var.png)
+![APIM - Setting TPM environment variables](/images/apim_tpm_env_var.png)
 
 | Environment Variable | Description |
 | --- | --- |
 | _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment |
 | _APIM_TPM_API_VERSION_ | API version of AOAI endpoint |
-| _APIM_TPM_SUB_KEY_ | Subscription key, with the scope covering target API-M APIs |
-| _APIM_TPM_URL_ | URL of provisioned API-M's endpoint for AOAI endpoint |
+| _APIM_TPM_SUB_KEY_ | Subscription key, with the scope of target API-M APIs |
+| _APIM_TPM_URL_ | URL of provisioned API-M's API for AOAI endpoint |
 
 6. We can use now a Helper function to interact with AOAI backend through API-M endpoint:
 ``` Python
@@ -192,7 +192,7 @@ This section describes setup of API-M and then end-to-end testing of tokens usag
 | _APIM_USAGE_API_VERSION_ | API version of AOAI endpoint |
 | _APIM_USAGE_KEY_CONTOSO_ | Subscription key, created for Contoso client |
 | _APIM_USAGE_KEY_NORTHWIND_ | Subscription key, created for Northwind client |
-| _APIM_USAGE_URL_ | URL of provisioned API-M's endpoint for AOAI endpoint |
+| _APIM_USAGE_URL_ | URL of provisioned API-M's API for AOAI endpoint |
 
 5. You can now generate workload with effect of randomness for both Contoso and Northwind clients, connected to the same Azure OpenAI deployment:
 ``` Python
@@ -251,5 +251,57 @@ This section describes setup of API-M and then end-to-end testing of AOAI load-b
 ```
 > Note: At the time of writing, API-M didn't support configuring circuit-breaker in API-M's UI of Azure portal.
 2. You can combine then your backends into load-balancing pool, using **round-robin**, **weight-** or **priority-based** logic. Provided ```LoadBalancer_Pool.json``` can be used as a template to configure such pool through API-M's REST API.
+``` JSON
+{
+    "properties": {
+        "description": "<DESCRIPTION>",
+        "title": "<TITLE>",
+        "type": "Pool",
+        "pool": {
+            "services": [
+                {
+                    "id": "<BACKEND_1>",
+                    "priority": 1
+                },
+                {
+                    "id": "<BACKEND_2>",
+                    "priority": 2
+                }
+            ]
+        }
+    }
+}
+```
 > Note: At the time of writing, API-M didn't support configuring load-balancing pool in API-M's UI of Azure portal.
-3. 
+3. If you want to test load-balancing between defined AOAI endpoints, ensure that you set the following 4 environment variables prior to running provided [Jupyter notebook](AOAI_APIM_Load_Balance.ipynb):
+![APIM - Setting Usage environment variables](/images/apim_usage_env_var.png)
+
+| Environment Variable | Description |
+| --- | --- |
+| _APIM_LB_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_LB_API_VERSION_ | API version of AOAI endpoint |
+| _APIM_LB_SUB_KEY_ | Subscription key, created for load-balancing API-M endpoint |
+| _APIM_LB_URL_ | URL of load-balancing API-M's API for AOAI endpoint |
+
+4. If you configure AOAI deployment of GPT-4o in Sweden Central with ultra-low TPM quota of 1K and load-balance it with a higher TPM quota of GPT-4 in France Central, your test results may look like this:
+``` JSON
+Run # 0: Sweden Central, Duration: 0.84, Response Code: 200
+Pausing for 2 seconds...
+Run # 1: None, Duration: 1.23, Response Code: 503
+Pausing for 2 seconds...
+Run # 2: France Central, Duration: 2.57, Response Code: 200
+Pausing for 2 seconds...
+Run # 3: France Central, Duration: 1.94, Response Code: 200
+Pausing for 2 seconds...
+Run # 4: France Central, Duration: 1.97, Response Code: 200
+Pausing for 2 seconds...
+Run # 5: France Central, Duration: 2.18, Response Code: 200
+Pausing for 2 seconds...
+Run # 6: France Central, Duration: 1.72, Response Code: 200
+Pausing for 2 seconds...
+Run # 7: France Central, Duration: 2.17, Response Code: 200
+Pausing for 2 seconds...
+Run # 8: France Central, Duration: 1.99, Response Code: 200
+Pausing for 2 seconds...
+Run # 9: Sweden Central, Duration: 0.88, Response Code: 200
+``` 
