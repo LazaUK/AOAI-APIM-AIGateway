@@ -1,13 +1,13 @@
 # Azure API Management's AI Gateway for AOAI use-case scenarios
 
-**_Azure API Management (API-M)_** is a Microsoft's cloud service that helps you publish and securily manage custom Application Programming Interfaces (APIs). API-M acts as a gateway between clients or apps and backend APIs, offering features like rate limiting, security and usage analytics.
+**_Azure API Management (API-M)_** helps you publish and securily manage custom Application Programming Interfaces (APIs), acting as a gateway between clients and backend APIs.
 
-**_Azure OpenAI (AOAI)_** is another Microsoft's cloud service that lets you deploy and use OpenAI's powerful language models like GPT-4o on Azure platform. You can leverage capabilities of AOAI to process and generate multimodal content, from text to images and audio, and easily integrate AOAI with other solutions of your choice.
+**_Azure OpenAI (AOAI)_** lets you deploy OpenAI's powerful large language models (LLMs) like **GPT-4o** on Azure to process and generate multimodal content and easily integrate with other solutions of your choice.
 
-In this repo, I'll demonstrate how you can combine functionalities of API-M and AOAI to enable the following use-case scenarios:
-- ```Enforce custom token limit```, so that calling apps can co-share AOAI backends without causing "noise neighbour" situations;
-- ```Get detailed token usage breakdown```, to understand consumption patterns and accurately re-charge cost to customers or business functions;
-- ```Enable load-balancing between target AOAI deployments``` to meet data residency requirements, and improve performance and reliability of your GenAI solutions.
+In this repo, I'll demonstrate how to combine functionalities of API-M and AOAI to enable the following use-case scenarios:
+- ```Enforce custom token limit```, so that calling apps can co-share AOAI backends without causing "noisy neighbour" situations;
+- ```Get detailed token usage breakdown```, to understand consumption and accurately re-charge cost to customers or business functions;
+- ```Enable load-balancing between target AOAI deployments``` to ensure data residency, performance and reliability of your AI solutions.
 
 ## Table of contents:
 - [Scenario 1: Enforcing custom token limit](https://github.com/LazaUK/AOAI-APIM-AIGateway?tab=readme-ov-file#scenario-1-enforcing-custom-token-limit)
