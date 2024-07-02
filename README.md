@@ -184,6 +184,22 @@ Remaining tokens: 0
 | _APIM_USAGE_KEY_NORTHWIND_ | Subscription key, created for Northwind client |
 | _APIM_USAGE_URL_ | URL of provisioned API-M's endpoint for AOAI endpoint |
 
+5. You can now generate workload with effect of randomness for both Contoso and Northwind clients, connected to the same Azure OpenAI deployment:
+``` Python
+for key in SUBSCRIPTION_KEYS:
+    randomness = random.randint(0, 5)
+    for i in range(NUMBER_OF_RUNS - randomness):    
+        start_time = time.time()
+        response = get_rest_completion(subscription_key=key, system_prompt=SYSTEM_PROMPT, user_prompt=USER_PROMPT)
+        end_time = time.time()
+        print(f"Run # {i} completed in {end_time - start_time:.2f} seconds with response code {response.status_code}")
+    
+        if i < NUMBER_OF_RUNS - 1:
+            print(f"Pausing for {SLEEP_TIME} seconds...")
+            time.sleep(SLEEP_TIME)
+    print("-----------------------------")
+```
+6. Collected token usage logs can be visualised in Application Insights' charts, e.g. total tokens splitted by Subscription IDs as shown below:
 ![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
