@@ -213,8 +213,8 @@ for key in SUBSCRIPTION_KEYS:
 ![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
-This section describes setup of API-M and then end-to-end testing of AOAI load-balancing scenario.
-1. For each backend, you can configure circuit-breaker logic, so that it trips when AOAI deployment returns too many errors. Provided ```LoadBalancer_CircuitBreaker.json``` can be used as a template to configure circuit breaker through API-M's REST API. It will trip for **30 seconds**, if if AOAO endpoint will return _429_ (Too Many Requests) or _5xx_ server errors in any **2 seconds** intervals.
+This section describes setting up API-M and then performing end-to-end testing of an AOAI load-balancing scenario.
+1. For each backend AOAI endpoint, you can configure _circuit breaker_ logic using API-M's REST API. Such logic determines when to temporarily stop sending requests to an unhealthy endpoint. The provided **LoadBalancer_CircuitBreaker.json** can be re-used as a jump-start template, where you trip the circuit breaker for **30 seconds** if the AOAI endpoint returns _429_ (Too Many Requests) or _5xx_ (server errors) within any **2-second** interval.
 ``` JSON
 {
     "properties": {
@@ -249,8 +249,8 @@ This section describes setup of API-M and then end-to-end testing of AOAI load-b
     }
 }
 ```
-> Note: At the time of writing, API-M didn't support configuring circuit-breaker in API-M's UI of Azure portal.
-2. You can combine then your backends into load-balancing pool, using **round-robin**, **weight-** or **priority-based** logic. Provided ```LoadBalancer_Pool.json``` can be used as a template to configure such pool through API-M's REST API.
+> Note: At the time of writing, configuring circuit breakers directly within the Azure portal UI for API-M was not supported.
+2. You can combine your backend AOAI endpoints into a load-balancing pool, using either **round-robin**, **weight-based** or **priority-based** logic. The provided ```LoadBalancer_Pool.json``` can be re-used as a jump-start template to configure such a pool.
 ``` JSON
 {
     "properties": {
@@ -272,8 +272,8 @@ This section describes setup of API-M and then end-to-end testing of AOAI load-b
     }
 }
 ```
-> Note: At the time of writing, API-M didn't support configuring load-balancing pool in API-M's UI of Azure portal.
-3. If you want to test load-balancing between defined AOAI endpoints, ensure that you set the following 4 environment variables prior to running provided [Jupyter notebook](AOAI_APIM_Load_Balance.ipynb):
+> Note: At the time of writing, configuring load-balancing pools directly within the Azure portal UI for API-M was not supported.
+3. If you want to test load-balancing between your defined AOAI endpoints, ensure that you set the following 4 environment variables before running the provided [Jupyter notebook](AOAI_APIM_Load_Balance.ipynb):
 ![APIM - Setting Usage environment variables](/images/apim_usage_env_var.png)
 
 | Environment Variable | Description |
@@ -283,7 +283,7 @@ This section describes setup of API-M and then end-to-end testing of AOAI load-b
 | _APIM_LB_SUB_KEY_ | Subscription key, created for load-balancing API-M endpoint |
 | _APIM_LB_URL_ | URL of load-balancing API-M's API for AOAI endpoint |
 
-4. If you configure AOAI deployment of GPT-4o in Sweden Central with ultra-low TPM quota of 1K and load-balance it with a higher TPM quota of GPT-4 in France Central, your test results may look like this:
+4. Consider a use-case where you configure an AOAI deployment of GPT-4o in Sweden Central with an ultra-low Token-per-Minute (TPM) quota of 1K. You then load-balance it with a higher TPM quota GPT-4 deployment in France Central. Your test results might be similar to what is shown below, with successful routing to the France Central endpoint when the circuit breaker trips for the Sweden Central endpoint:
 ``` JSON
 Run # 0: Sweden Central, Duration: 0.84, Response Code: 200
 Pausing for 2 seconds...
