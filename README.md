@@ -48,7 +48,7 @@ This section describes setting up API-M and then end-to-end testing of the token
 
 | Environment Variable | Description |
 | --- | --- |
-| _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_TPM_AOAI_DEPLOY_ | Name of AOAI deployment |
 | _APIM_TPM_API_VERSION_ | API version of AOAI endpoint |
 | _APIM_TPM_SUB_KEY_ | Subscription key, with the scope of target API-M APIs |
 | _APIM_TPM_URL_ | URL of provisioned API-M's API for AOAI endpoint |
@@ -105,7 +105,7 @@ Consumed tokens: 55
 Remaining tokens: 0
 -----------------------------
 ```
-8. If you enabled SDK compatibility in Step 2 above, you can use the OpenAI Python SDK to interact with your AOAI models through the API-M endpoint. Here's how to instantiate the AzureOpenAI class with your API-M's subscription key:
+8. If you enabled SDK compatibility in Step 2 above, you could use the OpenAI Python SDK to interact with your AOAI models through the API-M endpoint. Here's how to instantiate the AzureOpenAI class with your API-M's subscription key:
 ``` Python
 client = AzureOpenAI(
     azure_endpoint = APIM_TPM_URL,
@@ -188,7 +188,7 @@ This section describes setting up API-M and then performing end-to-end testing o
 
 | Environment Variable | Description |
 | --- | --- |
-| _APIM_USAGE_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_USAGE_AOAI_DEPLOY_ | Name of AOAI deployment |
 | _APIM_USAGE_API_VERSION_ | API version of AOAI endpoint |
 | _APIM_USAGE_KEY_CONTOSO_ | Subscription key, created for Contoso client |
 | _APIM_USAGE_KEY_NORTHWIND_ | Subscription key, created for Northwind client |
@@ -278,7 +278,7 @@ This section describes setting up API-M and then performing end-to-end testing o
 
 | Environment Variable | Description |
 | --- | --- |
-| _APIM_LB_AOAI_DEPLOY_ | Name of AOAI depoyment |
+| _APIM_LB_AOAI_DEPLOY_ | Name of AOAI deployment |
 | _APIM_LB_API_VERSION_ | API version of AOAI endpoint |
 | _APIM_LB_SUB_KEY_ | Subscription key, created for load-balancing API-M endpoint |
 | _APIM_LB_URL_ | URL of load-balancing API-M's API for AOAI endpoint |
