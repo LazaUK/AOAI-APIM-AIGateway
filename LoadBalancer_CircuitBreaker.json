@@ -1,0 +1,32 @@
+{
+    "properties": {
+        "description": "<DESCRIPTION>",
+        "title": "<TITLE>",
+        "type": "Single",
+        "protocol": "http",
+        "url": "<URL>",
+        "circuitBreaker": {
+            "rules": [
+                {
+                    "failureCondition": {
+                        "count": 1,
+                        "interval": "PT2S",
+                        "statusCodeRanges": [
+                            {
+                                "min": 429,
+                                "max": 429
+                            },
+                            {
+                                "min": 500,
+                                "max": 599
+                            }
+                        ]
+                    },
+                    "name": "<NAME>",
+                    "tripDuration": "PT30S",
+                    "acceptRetryAfter": true
+                }
+            ]
+        }
+    }
+}
