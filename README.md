@@ -182,8 +182,7 @@ Remaining tokens: 0
 </policies>
 ```
 4. If you want to log and visualise tokens usage, ensure that you set the following 5 environment variables prior to running the notebook:
-
-![APIM - Setting Usage environment variables](/images/apim_usage_ env_var.png)
+![APIM - Setting Usage environment variables](/images/apim_usage_env_var.png)
 
 | Environment Variable | Description |
 | --- | --- |
