@@ -209,7 +209,7 @@ for key in SUBSCRIPTION_KEYS:
             time.sleep(SLEEP_TIME)
     print("-----------------------------")
 ```
-6. Collected token usage logs can be visualised in Application Insights charts, e.g. the total tokens split by Subscription IDs as shown below:
+6. Collected token usage logs can be visualised in Application Insights charts, e.g. the total tokens split by Subscription IDs of **Contoso** and **Northwind** as shown below:
 ![APIM - Visualising usage stats](/images/apim_usage_chart.png)
 
 ## Scenario 3: Load-balancing between several AOAI endpoints
